@@ -57,7 +57,7 @@ NSString *const OpenWeatherMapErrorDomain = @"ca.akaiconsulting.MyLastWeatherApp
         return;
     }
     NSURLSession *session = [NSURLSession sharedSession];
-    NSDictionary *params = @{ @"APPID" : kAPI_KEY, @"q" : city };
+    NSDictionary *params = @{ @"APPID" : kAPI_KEY, @"q" : city, @"units" : @"metric" };
     NSString *urlString = [NSString stringWithFormat:@"%@%@?%@", kAPI_URL, kWEATHER_ENDPOINT, [self URLEncodedQueryStringForParameters:params]];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -68,28 +68,58 @@ NSString *const OpenWeatherMapErrorDomain = @"ca.akaiconsulting.MyLastWeatherApp
                               ^(NSData *data, NSURLResponse *response, NSError *error) {
                                   [wself stopLoadingIndicator];
                                   if (error) {
-                                      completion(nil, error);
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          completion(nil, error);
+                                      });
                                   } else {
                                       NSError *jsonError = nil;
                                       NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                                                            options:NSJSONReadingMutableContainers
                                                                                              error:&jsonError];
                                       if (jsonError) {
-                                          completion(nil, jsonError);
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              completion(nil, jsonError);
+                                          });
                                       } else {
                                           NSInteger errorCode = [[json objectForKey:@"cod"] integerValue];
                                           if (errorCode != 200) {
-                                              completion(nil, [NSError errorWithDomain:OpenWeatherMapErrorDomain
-                                                                                  code:errorCode
-                                                                              userInfo:@{NSLocalizedDescriptionKey : [json objectForKey:@"message"]}]);
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  completion(nil, [NSError errorWithDomain:OpenWeatherMapErrorDomain
+                                                                                      code:errorCode
+                                                                                  userInfo:@{NSLocalizedDescriptionKey : [json objectForKey:@"message"]}]);
+                                              });
                                           } else {
-                                              completion(json, nil);
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  completion(json, nil);
+                                              });
                                           }
                                       }
                                   }
                                   
     }];
     [task resume];
+}
+
+- (void)downloadIcon:(NSString *)iconName withCompletion:(void(^)(UIImage *icon))completion
+{
+    if (!iconName) {
+        completion(nil);
+        return;
+    }
+    __weak __typeof__(self) wself = self;
+    [wself startLoadingIndicator];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.png", kIMG_URL, iconName]];
+        UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:iconURL]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [wself stopLoadingIndicator];
+            if (icon) {
+                completion(icon);
+            } else {
+                completion(nil);
+            }
+        });
+    });
 }
 
 @end
