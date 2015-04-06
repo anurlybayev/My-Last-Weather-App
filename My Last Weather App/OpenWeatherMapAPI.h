@@ -14,5 +14,6 @@ FOUNDATION_EXPORT NSString *const OpenWeatherMapErrorDomain;
 @interface OpenWeatherMapAPI : NSObject
 
 - (void)currentWeatherForCity:(NSString *)city completion:(void(^)(id weather, NSError *error))completion;
+- (void)downloadIcon:(NSString *)iconName withCompletion:(void(^)(UIImage *icon))completion;
 
 @end
