@@ -10,6 +10,7 @@
 
 #import "MainViewController.h"
 #import "OpenWeatherMapAPI.h"
+#import "ForecastViewController.h"
 
 @interface MainViewController () <UITextFieldDelegate, CLLocationManagerDelegate>
 
@@ -24,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
 
 @property (strong, nonatomic) NSNumber *temp;
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) CLLocation *location;
 
 @property (strong, nonatomic) NSTimer *timer;
 @property (strong, nonatomic) NSDateFormatter *dateTimeFormatter;
@@ -69,6 +72,15 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ForecastSegue"]) {
+        ForecastViewController *fvc = (ForecastViewController *)segue.destinationViewController;
+        fvc.city = self.city;
+        fvc.location = self.location;
+    }
 }
 
 - (NSDateFormatter *)dateTimeFormatter
@@ -167,6 +179,8 @@
     NSLog(@"User entered: %@", textField.text);
     
     NSString *city = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    self.location = nil;
+    self.city = city;
     [self.weatherAPI currentWeatherForCity:city completion:^(id weather, NSError *error) {
         if (error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
@@ -225,6 +239,8 @@
 {
     CLLocation *currentLocation = [locations lastObject];
     [self.locationManager stopUpdatingLocation];
+    self.city = nil;
+    self.location = currentLocation;
     [self.weatherAPI currentWeatherForCoordinate:currentLocation.coordinate completion:^(id weather, NSError *error) {
         if (error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil

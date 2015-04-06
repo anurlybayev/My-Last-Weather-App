@@ -15,6 +15,8 @@
 		75A162E71AD2CF3900C5ED59 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75A162E51AD2CF3900C5ED59 /* LaunchScreen.xib */; };
 		75A162F31AD2CF3900C5ED59 /* My_Last_Weather_AppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A162F21AD2CF3900C5ED59 /* My_Last_Weather_AppTests.m */; };
 		75A162FE1AD2D7EC00C5ED59 /* OpenWeatherMapAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A162FD1AD2D7EC00C5ED59 /* OpenWeatherMapAPI.m */; };
+		75A163011AD3343000C5ED59 /* ForecastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A163001AD3343000C5ED59 /* ForecastViewController.m */; };
+		75A163041AD3346200C5ED59 /* ForecastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A163031AD3346200C5ED59 /* ForecastCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +45,10 @@
 		75A162F21AD2CF3900C5ED59 /* My_Last_Weather_AppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = My_Last_Weather_AppTests.m; sourceTree = "<group>"; };
 		75A162FC1AD2D7EC00C5ED59 /* OpenWeatherMapAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenWeatherMapAPI.h; sourceTree = "<group>"; };
 		75A162FD1AD2D7EC00C5ED59 /* OpenWeatherMapAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherMapAPI.m; sourceTree = "<group>"; };
+		75A162FF1AD3343000C5ED59 /* ForecastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForecastViewController.h; sourceTree = "<group>"; };
+		75A163001AD3343000C5ED59 /* ForecastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForecastViewController.m; sourceTree = "<group>"; };
+		75A163021AD3346200C5ED59 /* ForecastCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForecastCell.h; sourceTree = "<group>"; };
+		75A163031AD3346200C5ED59 /* ForecastCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForecastCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,10 @@
 				75A162FD1AD2D7EC00C5ED59 /* OpenWeatherMapAPI.m */,
 				75A162DD1AD2CF3900C5ED59 /* MainViewController.h */,
 				75A162DE1AD2CF3900C5ED59 /* MainViewController.m */,
+				75A162FF1AD3343000C5ED59 /* ForecastViewController.h */,
+				75A163001AD3343000C5ED59 /* ForecastViewController.m */,
+				75A163021AD3346200C5ED59 /* ForecastCell.h */,
+				75A163031AD3346200C5ED59 /* ForecastCell.m */,
 				75A162E01AD2CF3900C5ED59 /* Main.storyboard */,
 				75A162E31AD2CF3900C5ED59 /* Images.xcassets */,
 				75A162E51AD2CF3900C5ED59 /* LaunchScreen.xib */,
@@ -224,6 +234,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75A163041AD3346200C5ED59 /* ForecastCell.m in Sources */,
+				75A163011AD3343000C5ED59 /* ForecastViewController.m in Sources */,
 				75A162FE1AD2D7EC00C5ED59 /* OpenWeatherMapAPI.m in Sources */,
 				75A162DF1AD2CF3900C5ED59 /* MainViewController.m in Sources */,
 				75A162DC1AD2CF3900C5ED59 /* AppDelegate.m in Sources */,
