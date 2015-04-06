@@ -63,7 +63,14 @@ NSString *const OpenWeatherMapErrorDomain = @"ca.akaiconsulting.MyLastWeatherApp
                                       if (jsonError) {
                                           completion(nil, jsonError);
                                       } else {
-                                          completion(json, nil);
+                                          NSNumber *errorCode = [json objectForKey:@"cod"];
+                                          if (errorCode) {
+                                              completion(nil, [NSError errorWithDomain:OpenWeatherMapErrorDomain
+                                                                                  code:[errorCode integerValue]
+                                                                              userInfo:@{NSLocalizedDescriptionKey : [json objectForKey:@"message"]}]);
+                                          } else {
+                                              completion(json, nil);
+                                          }
                                       }
                                   }
                                   

@@ -86,7 +86,11 @@
     NSString *city = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [self.weatherAPI currentWeatherForCity:city completion:^(id weather, NSError *error) {
         if (error) {
-            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                           message:[error localizedDescription]
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
         } else {
             NSLog(@"%@", weather);
         }
