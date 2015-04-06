@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "OpenWeatherMapAPI.h"
 
 @interface MainViewController () <UITextFieldDelegate>
 
@@ -15,6 +16,7 @@
 
 @property (strong, nonatomic) NSTimer *timer;
 @property (strong, nonatomic) NSDateFormatter *dateTimeFormatter;
+@property (strong, nonatomic) OpenWeatherMapAPI *weatherAPI;
 
 @end
 
@@ -50,6 +52,14 @@
     return _dateTimeFormatter;
 }
 
+- (OpenWeatherMapAPI *)weatherAPI
+{
+    if (!_weatherAPI) {
+        _weatherAPI = [[OpenWeatherMapAPI alloc] init];
+    }
+    return _weatherAPI;
+}
+
 - (void)updateTime:(NSTimer *)timer
 {
     NSDate *currentTime = [NSDate date];
@@ -72,6 +82,15 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     NSLog(@"User entered: %@", textField.text);
+    
+    NSString *city = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [self.weatherAPI currentWeatherForCity:city completion:^(id weather, NSError *error) {
+        if (error) {
+            
+        } else {
+            NSLog(@"%@", weather);
+        }
+    }];
 }
 
 @end
