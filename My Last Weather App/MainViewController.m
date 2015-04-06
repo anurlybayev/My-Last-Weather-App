@@ -9,21 +9,48 @@
 #import "MainViewController.h"
 
 @interface MainViewController ()
+
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
+
+@property (strong, nonatomic) NSTimer *timer;
+@property (strong, nonatomic) NSDateFormatter *dateTimeFormatter;
 
 @end
 
 @implementation MainViewController
 
+- (void)dealloc
+{
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    [self updateTime:nil];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSDateFormatter *)dateTimeFormatter
+{
+    if (!_dateTimeFormatter) {
+        _dateTimeFormatter = [[NSDateFormatter alloc] init];
+        [_dateTimeFormatter setDateFormat:@"HH:mm:ss"];
+    }
+    return _dateTimeFormatter;
+}
+
+- (void)updateTime:(NSTimer *)timer
+{
+    NSDate *currentTime = [NSDate date];
+    self.dateLabel.text = [self.dateTimeFormatter stringFromDate:currentTime];
 }
 
 @end
