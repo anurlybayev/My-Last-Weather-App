@@ -10,6 +10,7 @@
 
 NSString *const kAPI_KEY = @"979dbed9d1bc20baf5c3a646ab8b2fc8";
 NSString *const kAPI_URL = @"http://api.openweathermap.org/data/2.5/";
+NSString *const kIMG_URL = @"http://openweathermap.org/img/w/";
 NSString *const kWEATHER_ENDPOINT = @"weather";
 
 NSInteger const OpenWeatherMapInvalidInputCode = -1000;
@@ -24,6 +25,16 @@ NSString *const OpenWeatherMapErrorDomain = @"ca.akaiconsulting.MyLastWeatherApp
         
     }
     return self;
+}
+
+- (void)startLoadingIndicator
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void)stopLoadingIndicator
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (NSString *)URLEncodedQueryStringForParameters:(NSDictionary *)parameters
@@ -50,9 +61,12 @@ NSString *const OpenWeatherMapErrorDomain = @"ca.akaiconsulting.MyLastWeatherApp
     NSString *urlString = [NSString stringWithFormat:@"%@%@?%@", kAPI_URL, kWEATHER_ENDPOINT, [self URLEncodedQueryStringForParameters:params]];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    __weak __typeof__(self) wself = self;
+    [wself startLoadingIndicator];
     NSURLSessionTask *task = [session dataTaskWithRequest:request
                                         completionHandler:
                               ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                  [wself stopLoadingIndicator];
                                   if (error) {
                                       completion(nil, error);
                                   } else {
@@ -63,10 +77,10 @@ NSString *const OpenWeatherMapErrorDomain = @"ca.akaiconsulting.MyLastWeatherApp
                                       if (jsonError) {
                                           completion(nil, jsonError);
                                       } else {
-                                          NSNumber *errorCode = [json objectForKey:@"cod"];
-                                          if (errorCode) {
+                                          NSInteger errorCode = [[json objectForKey:@"cod"] integerValue];
+                                          if (errorCode != 200) {
                                               completion(nil, [NSError errorWithDomain:OpenWeatherMapErrorDomain
-                                                                                  code:[errorCode integerValue]
+                                                                                  code:errorCode
                                                                               userInfo:@{NSLocalizedDescriptionKey : [json objectForKey:@"message"]}]);
                                           } else {
                                               completion(json, nil);
