@@ -48,16 +48,9 @@ NSString *const OpenWeatherMapErrorDomain = @"ca.akaiconsulting.MyLastWeatherApp
     return [queryParams componentsJoinedByString:@"&"];
 }
 
-- (void)currentWeatherForCity:(NSString *)city completion:(void(^)(id weather, NSError *error))completion
+- (void)currentWeatherWithParams:(NSDictionary *)params completion:(void(^)(id weather, NSError *error))completion
 {
-    if (!city || [city length] == 0) {
-        completion(nil, [NSError errorWithDomain:OpenWeatherMapErrorDomain
-                                            code:OpenWeatherMapInvalidInputCode
-                                        userInfo:@{NSLocalizedDescriptionKey : @"City name is required"}]);
-        return;
-    }
     NSURLSession *session = [NSURLSession sharedSession];
-    NSDictionary *params = @{ @"APPID" : kAPI_KEY, @"q" : city, @"units" : @"metric" };
     NSString *urlString = [NSString stringWithFormat:@"%@%@?%@", kAPI_URL, kWEATHER_ENDPOINT, [self URLEncodedQueryStringForParameters:params]];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -96,8 +89,31 @@ NSString *const OpenWeatherMapErrorDomain = @"ca.akaiconsulting.MyLastWeatherApp
                                       }
                                   }
                                   
-    }];
+                              }];
     [task resume];
+}
+
+- (void)currentWeatherForCity:(NSString *)city completion:(void(^)(id weather, NSError *error))completion
+{
+    if (!city || [city length] == 0) {
+        completion(nil, [NSError errorWithDomain:OpenWeatherMapErrorDomain
+                                            code:OpenWeatherMapInvalidInputCode
+                                        userInfo:@{NSLocalizedDescriptionKey : @"City name is required"}]);
+        return;
+    }
+    NSDictionary *params = @{ @"APPID" : kAPI_KEY, @"q" : city, @"units" : @"metric" };
+    [self currentWeatherWithParams:params completion:completion];
+}
+
+- (void)currentWeatherForCoordinate:(CLLocationCoordinate2D)coordinate completion:(void(^)(id weather, NSError *error))completion
+{
+    NSDictionary *params = @{
+                             @"APPID" : kAPI_KEY,
+                             @"lon" : [@(coordinate.longitude) description],
+                             @"lat" : [@(coordinate.latitude) description],
+                             @"units" : @"metric"
+                             };
+    [self currentWeatherWithParams:params completion:completion];
 }
 
 - (void)downloadIcon:(NSString *)iconName withCompletion:(void(^)(UIImage *icon))completion
