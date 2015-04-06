@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Akbar Nurlybayev. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 FOUNDATION_EXPORT NSInteger const OpenWeatherMapInvalidInputCode;
 FOUNDATION_EXPORT NSString *const OpenWeatherMapErrorDomain;
