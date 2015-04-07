@@ -82,7 +82,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3o-xG-51Z">
-                                <rect key="frame" x="270" y="374.5" width="60" height="30"/>
+                                <rect key="frame" x="270" y="374" width="60" height="30"/>
                                 <state key="normal" title="Forecast">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -90,10 +90,21 @@
                                     <segue destination="NzP-ly-yTu" kind="show" identifier="ForecastSegue" id="FR2-tJ-4CH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8aw-qA-paG">
+                                <rect key="frame" x="266" y="424" width="68" height="30"/>
+                                <state key="normal" title="Map View">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="e5N-7h-Xwf" kind="show" identifier="MapSegue" id="ZWW-3P-yfC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gol-5e-DvO" firstAttribute="top" secondItem="DxJ-x7-Hqd" secondAttribute="bottom" constant="20" id="1nr-zN-hzB"/>
+                            <constraint firstItem="8aw-qA-paG" firstAttribute="top" secondItem="f3o-xG-51Z" secondAttribute="bottom" constant="20" id="2sm-mS-oQD"/>
+                            <constraint firstItem="8aw-qA-paG" firstAttribute="centerX" secondItem="f3o-xG-51Z" secondAttribute="centerX" id="3RH-pk-0vP"/>
                             <constraint firstItem="6dI-dH-Ece" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="4Jo-qZ-NS0"/>
                             <constraint firstItem="tRS-YQ-l7w" firstAttribute="top" secondItem="gol-5e-DvO" secondAttribute="bottom" constant="8" id="4Sy-Zq-YXc"/>
                             <constraint firstItem="3qk-mx-i4i" firstAttribute="centerY" secondItem="Dnb-w2-Dxa" secondAttribute="centerY" id="5nn-H9-vaZ"/>
@@ -204,6 +215,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JcV-Ax-U2z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1945" y="-384"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="B3H-qZ-BlX">
+            <objects>
+                <viewController id="e5N-7h-Xwf" customClass="MapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Db3-po-mj5"/>
+                        <viewControllerLayoutGuide type="bottom" id="2E8-ZM-hF8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6zs-nt-6od">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="h44-1o-Ite">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2E8-ZM-hF8" firstAttribute="top" secondItem="h44-1o-Ite" secondAttribute="bottom" id="91V-RF-Xx0"/>
+                            <constraint firstAttribute="trailing" secondItem="h44-1o-Ite" secondAttribute="trailing" id="GPX-JF-755"/>
+                            <constraint firstItem="h44-1o-Ite" firstAttribute="leading" secondItem="6zs-nt-6od" secondAttribute="leading" id="J9v-oy-oV9"/>
+                            <constraint firstItem="h44-1o-Ite" firstAttribute="top" secondItem="Db3-po-mj5" secondAttribute="bottom" id="QVW-eK-V93"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="h44-1o-Ite" id="jti-rv-uuv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vHL-MW-83Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1945" y="374"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QzB-HP-YIV">

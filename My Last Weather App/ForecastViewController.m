@@ -31,7 +31,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     __weak __typeof__(self) wself = self;
-    [self.weatherAPI weatherForecastForCoordinate:self.location.coordinate completion:^(id forecast, NSError *error) {
+    [self.weatherAPI weatherForecastForCoordinate:self.weather.location.coordinate completion:^(id forecast, NSError *error) {
         if (error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
                                                                            message:[error localizedDescription]

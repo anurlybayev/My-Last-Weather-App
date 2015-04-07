@@ -7,14 +7,17 @@
 //
 @import CoreLocation;
 @import UIKit;
+#import "CurrentWeather.h"
 
 FOUNDATION_EXPORT NSInteger const OpenWeatherMapInvalidInputCode;
 FOUNDATION_EXPORT NSString *const OpenWeatherMapErrorDomain;
 
 @interface OpenWeatherMapAPI : NSObject
 
-- (void)currentWeatherForCity:(NSString *)city completion:(void(^)(id weather, NSError *error))completion;
-- (void)currentWeatherForCoordinate:(CLLocationCoordinate2D)coordinate completion:(void(^)(id weather, NSError *error))completion;
+- (void)currentWeatherForCity:(NSString *)city
+                   completion:(void(^)(CurrentWeather *weather, NSError *error))completion;
+- (void)currentWeatherForCoordinate:(CLLocationCoordinate2D)coordinate
+                         completion:(void(^)(CurrentWeather *weather, NSError *error))completion;
 - (void)weatherForecastForCity:(NSString *)city completion:(void(^)(id forecast, NSError *error))completion;
 - (void)weatherForecastForCoordinate:(CLLocationCoordinate2D)coordinate completion:(void(^)(id forecast, NSError *error))completion;
 - (void)downloadIcon:(NSString *)iconName withCompletion:(void(^)(UIImage *icon))completion;

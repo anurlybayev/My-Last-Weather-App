@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		759F95531AD45429007A928C /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 759F95521AD45429007A928C /* MapViewController.m */; };
+		759F95551AD454CB007A928C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759F95541AD454CB007A928C /* MapKit.framework */; };
+		759F95581AD45A20007A928C /* CurrentWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 759F95571AD45A20007A928C /* CurrentWeather.m */; };
 		75A162D91AD2CF3900C5ED59 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A162D81AD2CF3900C5ED59 /* main.m */; };
 		75A162DC1AD2CF3900C5ED59 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A162DB1AD2CF3900C5ED59 /* AppDelegate.m */; };
 		75A162DF1AD2CF3900C5ED59 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A162DE1AD2CF3900C5ED59 /* MainViewController.m */; };
@@ -30,6 +33,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		759F95511AD45429007A928C /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		759F95521AD45429007A928C /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		759F95541AD454CB007A928C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		759F95561AD45A20007A928C /* CurrentWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentWeather.h; sourceTree = "<group>"; };
+		759F95571AD45A20007A928C /* CurrentWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentWeather.m; sourceTree = "<group>"; };
 		75A162D31AD2CF3900C5ED59 /* My Last Weather App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Last Weather App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A162D71AD2CF3900C5ED59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75A162D81AD2CF3900C5ED59 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -56,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				759F95551AD454CB007A928C /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,15 +103,20 @@
 				75A162DB1AD2CF3900C5ED59 /* AppDelegate.m */,
 				75A162FC1AD2D7EC00C5ED59 /* OpenWeatherMapAPI.h */,
 				75A162FD1AD2D7EC00C5ED59 /* OpenWeatherMapAPI.m */,
+				759F95561AD45A20007A928C /* CurrentWeather.h */,
+				759F95571AD45A20007A928C /* CurrentWeather.m */,
 				75A162DD1AD2CF3900C5ED59 /* MainViewController.h */,
 				75A162DE1AD2CF3900C5ED59 /* MainViewController.m */,
 				75A162FF1AD3343000C5ED59 /* ForecastViewController.h */,
 				75A163001AD3343000C5ED59 /* ForecastViewController.m */,
 				75A163021AD3346200C5ED59 /* ForecastCell.h */,
 				75A163031AD3346200C5ED59 /* ForecastCell.m */,
+				759F95511AD45429007A928C /* MapViewController.h */,
+				759F95521AD45429007A928C /* MapViewController.m */,
 				75A162E01AD2CF3900C5ED59 /* Main.storyboard */,
 				75A162E31AD2CF3900C5ED59 /* Images.xcassets */,
 				75A162E51AD2CF3900C5ED59 /* LaunchScreen.xib */,
+				759F95541AD454CB007A928C /* MapKit.framework */,
 				75A162D61AD2CF3900C5ED59 /* Supporting Files */,
 			);
 			path = "My Last Weather App";
@@ -240,6 +254,8 @@
 				75A162DF1AD2CF3900C5ED59 /* MainViewController.m in Sources */,
 				75A162DC1AD2CF3900C5ED59 /* AppDelegate.m in Sources */,
 				75A162D91AD2CF3900C5ED59 /* main.m in Sources */,
+				759F95581AD45A20007A928C /* CurrentWeather.m in Sources */,
+				759F95531AD45429007A928C /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +446,7 @@
 				75A162F81AD2CF3900C5ED59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		75A162F91AD2CF3900C5ED59 /* Build configuration list for PBXNativeTarget "My Last Weather AppTests" */ = {
 			isa = XCConfigurationList;
@@ -438,6 +455,7 @@
 				75A162FB1AD2CF3900C5ED59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

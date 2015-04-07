@@ -8,9 +8,10 @@
 
 @import UIKit;
 @import CoreLocation;
+#import "CurrentWeather.h"
 
 @interface ForecastViewController : UITableViewController
 
-@property(nonatomic, strong) CLLocation *location;
+@property(nonatomic, strong) CurrentWeather *weather;
 
 @end
