@@ -25,7 +25,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
 
 @property (strong, nonatomic) NSNumber *temp;
-@property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) CLLocation *location;
 
 @property (strong, nonatomic) NSTimer *timer;
@@ -78,7 +77,6 @@
 {
     if ([segue.identifier isEqualToString:@"ForecastSegue"]) {
         ForecastViewController *fvc = (ForecastViewController *)segue.destinationViewController;
-        fvc.city = self.city;
         fvc.location = self.location;
     }
 }
@@ -180,34 +178,37 @@
     
     NSString *city = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     self.location = nil;
-    self.city = city;
+    __weak __typeof__(self) wself = self;
     [self.weatherAPI currentWeatherForCity:city completion:^(id weather, NSError *error) {
         if (error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
                                                                            message:[error localizedDescription]
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
+            [wself presentViewController:alert animated:YES completion:nil];
         } else {
             NSLog(@"%@", weather);
             NSString *city = [weather objectForKey:@"name"];
             NSString *country = [weather valueForKeyPath:@"sys.country"];
-            self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", city, country];
+            wself.locationLabel.text = [NSString stringWithFormat:@"%@, %@", city, country];
             NSDictionary *currentCondition = [[weather objectForKey:@"weather"] lastObject];
-            self.currentConditionLabel.text = [[currentCondition objectForKey:@"description"] capitalizedString];
+            wself.currentConditionLabel.text = [[currentCondition objectForKey:@"description"] capitalizedString];
             
             NSDictionary *main = [weather objectForKey:@"main"];
-            self.temp = [main objectForKey:@"temp"];
-            [self convertTemperature:self.temperatureSegment];
-            self.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %@%%", [main objectForKey:@"humidity"]];
+            wself.temp = [main objectForKey:@"temp"];
+            [wself convertTemperature:wself.temperatureSegment];
+            wself.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %@%%", [main objectForKey:@"humidity"]];
             NSNumber *windSpeed = [weather valueForKeyPath:@"wind.speed"];
             windSpeed = @([windSpeed floatValue] * 3.6);
-            self.windLabel.text = [NSString stringWithFormat:@"Wind: %@ km/h", [self.temperatureFormatter stringFromNumber:windSpeed]];
+            wself.windLabel.text = [NSString stringWithFormat:@"Wind: %@ km/h", [wself.temperatureFormatter stringFromNumber:windSpeed]];
             
-            __weak __typeof__(self) wself = self;
-            [self.weatherAPI downloadIcon:[currentCondition objectForKey:@"icon"] withCompletion:^(UIImage *icon) {
+            CLLocationDegrees lat = [[weather valueForKeyPath:@"coord.lat"] doubleValue];
+            CLLocationDegrees lon = [[weather valueForKeyPath:@"coord.lon"] doubleValue];
+            wself.location = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+            
+            [wself.weatherAPI downloadIcon:[currentCondition objectForKey:@"icon"] withCompletion:^(UIImage *icon) {
                 if (icon) {
-                    self.currentConditionIcon.image = icon;
+                    wself.currentConditionIcon.image = icon;
                     [UIView animateWithDuration:1.0 animations:^{
                         wself.currentConditionIcon.alpha = 1.0;
                     }];
@@ -239,35 +240,38 @@
 {
     CLLocation *currentLocation = [locations lastObject];
     [self.locationManager stopUpdatingLocation];
-    self.city = nil;
     self.location = currentLocation;
+    __weak __typeof__(self) wself = self;
     [self.weatherAPI currentWeatherForCoordinate:currentLocation.coordinate completion:^(id weather, NSError *error) {
         if (error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
                                                                            message:[error localizedDescription]
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
+            [wself presentViewController:alert animated:YES completion:nil];
         } else {
             NSLog(@"%@", weather);
             NSString *city = [weather objectForKey:@"name"];
             NSString *country = [weather valueForKeyPath:@"sys.country"];
-            self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", city, country];
+            wself.locationLabel.text = [NSString stringWithFormat:@"%@, %@", city, country];
             NSDictionary *currentCondition = [[weather objectForKey:@"weather"] lastObject];
-            self.currentConditionLabel.text = [[currentCondition objectForKey:@"description"] capitalizedString];
+            wself.currentConditionLabel.text = [[currentCondition objectForKey:@"description"] capitalizedString];
             
             NSDictionary *main = [weather objectForKey:@"main"];
-            self.temp = [main objectForKey:@"temp"];
-            [self convertTemperature:self.temperatureSegment];
-            self.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %@%%", [main objectForKey:@"humidity"]];
+            wself.temp = [main objectForKey:@"temp"];
+            [wself convertTemperature:wself.temperatureSegment];
+            wself.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %@%%", [main objectForKey:@"humidity"]];
             NSNumber *windSpeed = [weather valueForKeyPath:@"wind.speed"];
             windSpeed = @([windSpeed floatValue] * 3.6);
-            self.windLabel.text = [NSString stringWithFormat:@"Wind: %@ km/h", [self.temperatureFormatter stringFromNumber:windSpeed]];
+            wself.windLabel.text = [NSString stringWithFormat:@"Wind: %@ km/h", [wself.temperatureFormatter stringFromNumber:windSpeed]];
             
-            __weak __typeof__(self) wself = self;
-            [self.weatherAPI downloadIcon:[currentCondition objectForKey:@"icon"] withCompletion:^(UIImage *icon) {
+            CLLocationDegrees lat = [[weather valueForKeyPath:@"coord.lat"] doubleValue];
+            CLLocationDegrees lon = [[weather valueForKeyPath:@"coord.lon"] doubleValue];
+            wself.location = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+            
+            [wself.weatherAPI downloadIcon:[currentCondition objectForKey:@"icon"] withCompletion:^(UIImage *icon) {
                 if (icon) {
-                    self.currentConditionIcon.image = icon;
+                    wself.currentConditionIcon.image = icon;
                     [UIView animateWithDuration:1.0 animations:^{
                         wself.currentConditionIcon.alpha = 1.0;
                     }];
