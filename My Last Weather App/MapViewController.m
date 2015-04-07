@@ -10,7 +10,7 @@
 
 CLLocationDistance const searchRadius = 5000;
 
-@interface MapViewController ()
+@interface MapViewController () <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
@@ -20,9 +20,11 @@ CLLocationDistance const searchRadius = 5000;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    [self.mapView setDelegate:self];
     [self centerMapOnLocation:self.weather.location];
     [self.mapView addAnnotation:self.weather];
+    [self.mapView selectAnnotation:self.weather animated:YES];
 }
 
 - (void)centerMapOnLocation:(CLLocation *)location
@@ -30,14 +32,29 @@ CLLocationDistance const searchRadius = 5000;
     MKCoordinateRegion coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, searchRadius * 2.0, searchRadius * 2.0);
     [self.mapView setRegion:coordinateRegion animated:YES];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[CurrentWeather class]])
+    {
+        static NSString *const identifier = @"Map Annotation";
+        
+        MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        if (annotationView) {
+            annotationView.annotation = annotation;
+        } else {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+        }
+        annotationView.canShowCallout = YES;
+        annotationView.image = self.weather.weatherIcon;
+        
+        return annotationView;
+    }
+    else {
+        return nil;
+    }
 }
-*/
 
 @end

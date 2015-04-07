@@ -183,8 +183,9 @@
             wself.humidityLabel.text = [weather humidityDescription];
             wself.windLabel.text = [weather windSpeedDescription];
             
-            [wself.weatherAPI downloadIcon:[weather weatherIcon] withCompletion:^(UIImage *icon) {
+            [wself.weatherAPI downloadIcon:[weather weatherIconName] withCompletion:^(UIImage *icon) {
                 if (icon) {
+                    wself.currentWeather.weatherIcon = icon;
                     wself.currentConditionIcon.image = icon;
                     [UIView animateWithDuration:1.0 animations:^{
                         wself.currentConditionIcon.alpha = 1.0;
@@ -234,8 +235,9 @@
             wself.humidityLabel.text = [weather humidityDescription];
             wself.windLabel.text = [weather windSpeedDescription];
             
-            [wself.weatherAPI downloadIcon:[weather weatherIcon] withCompletion:^(UIImage *icon) {
+            [wself.weatherAPI downloadIcon:[weather weatherIconName] withCompletion:^(UIImage *icon) {
                 if (icon) {
+                    wself.currentWeather.weatherIcon = icon;
                     wself.currentConditionIcon.image = icon;
                     [UIView animateWithDuration:1.0 animations:^{
                         wself.currentConditionIcon.alpha = 1.0;

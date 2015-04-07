@@ -20,7 +20,7 @@
     weather.country = [json valueForKeyPath:@"sys.country"];
     NSDictionary *currentCondition = [[json objectForKey:@"weather"] lastObject];
     weather.weatherDescription = [[currentCondition objectForKey:@"description"] capitalizedString];
-    weather.weatherIcon = [currentCondition objectForKey:@"icon"];
+    weather.weatherIconName = [currentCondition objectForKey:@"icon"];
     weather.temperature = [json valueForKeyPath:@"main.temp"];
     weather.humidity = [json valueForKeyPath:@"main.humidity"];
     weather.windSpeed = [json valueForKeyPath:@"wind.speed"];
@@ -75,7 +75,16 @@
 
 - (NSString *)title
 {
-    return [NSString stringWithFormat:@"%@", self.temperature];
+    if (self.isFahrenheit) {
+        return [NSString stringWithFormat:@"%@ ℉", [self.numberFormatter stringFromNumber:self.temperature]];        
+    } else {
+        return [NSString stringWithFormat:@"%@ ℃", [self.numberFormatter stringFromNumber:self.temperature]];
+    }
+}
+
+- (NSString *)subtitle
+{
+    return self.weatherDescription;
 }
 
 @end

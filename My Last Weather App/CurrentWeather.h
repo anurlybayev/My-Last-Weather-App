@@ -14,7 +14,8 @@
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *country;
 @property (strong, nonatomic) NSString *weatherDescription;
-@property (strong, nonatomic) NSString *weatherIcon;
+@property (strong, nonatomic) NSString *weatherIconName;
+@property (strong, nonatomic) UIImage  *weatherIcon;
 @property (strong, nonatomic) NSNumber *temperature;
 @property (strong, nonatomic) NSNumber *humidity;
 @property (strong, nonatomic) NSNumber *windSpeed;
