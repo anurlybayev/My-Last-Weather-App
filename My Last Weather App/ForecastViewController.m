@@ -17,7 +17,6 @@
 @property (strong, nonatomic) NSNumberFormatter *temperatureFormatter;
 @property (strong, nonatomic) OpenWeatherMapAPI *weatherAPI;
 
-
 @end
 
 @implementation ForecastViewController
