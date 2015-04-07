@@ -17,13 +17,19 @@ NSString *const kFORECAST_ENDPOINT = @"forecast/daily";
 NSInteger const OpenWeatherMapInvalidInputCode = -1000;
 NSString *const OpenWeatherMapErrorDomain = @"ca.akaiconsulting.MyLastWeatherApp.OpenWeatherMapAPI";
 
+@interface OpenWeatherMapAPI ()
+
+@property (strong, nonatomic) NSCache *imageCache;
+
+@end
+
 @implementation OpenWeatherMapAPI
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        
+        self.imageCache = [[NSCache alloc] init];
     }
     return self;
 }
@@ -195,20 +201,26 @@ NSString *const OpenWeatherMapErrorDomain = @"ca.akaiconsulting.MyLastWeatherApp
         completion(nil);
         return;
     }
-    __weak __typeof__(self) wself = self;
-    [wself startLoadingIndicator];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.png", kIMG_URL, iconName]];
-        UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:iconURL]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [wself stopLoadingIndicator];
-            if (icon) {
-                completion(icon);
-            } else {
-                completion(nil);
-            }
+    UIImage *cachedIcon = [self.imageCache objectForKey:iconName];
+    if (cachedIcon) {
+        completion(cachedIcon);
+    } else {
+        __weak __typeof__(self) wself = self;
+        [wself startLoadingIndicator];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSURL *iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.png", kIMG_URL, iconName]];
+            UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:iconURL]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [wself stopLoadingIndicator];
+                if (icon) {
+                    [wself.imageCache setObject:icon forKey:iconName];
+                    completion(icon);
+                } else {
+                    completion(nil);
+                }
+            });
         });
-    });
+    }
 }
 
 @end
