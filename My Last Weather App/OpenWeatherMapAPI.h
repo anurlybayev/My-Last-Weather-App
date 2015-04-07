@@ -15,6 +15,8 @@ FOUNDATION_EXPORT NSString *const OpenWeatherMapErrorDomain;
 
 - (void)currentWeatherForCity:(NSString *)city completion:(void(^)(id weather, NSError *error))completion;
 - (void)currentWeatherForCoordinate:(CLLocationCoordinate2D)coordinate completion:(void(^)(id weather, NSError *error))completion;
+- (void)weatherForecastForCity:(NSString *)city completion:(void(^)(id forecast, NSError *error))completion;
+- (void)weatherForecastForCoordinate:(CLLocationCoordinate2D)coordinate completion:(void(^)(id forecast, NSError *error))completion;
 - (void)downloadIcon:(NSString *)iconName withCompletion:(void(^)(UIImage *icon))completion;
 
 @end
