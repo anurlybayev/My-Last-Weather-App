@@ -11,7 +11,6 @@
 
 @interface ForecastViewController : UITableViewController
 
-@property(nonatomic, strong) NSString *city;
 @property(nonatomic, strong) CLLocation *location;
 
 @end

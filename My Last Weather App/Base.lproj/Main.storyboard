@@ -140,56 +140,56 @@
         <scene sceneID="Bcf-Hn-lBM">
             <objects>
                 <tableViewController id="NzP-ly-yTu" customClass="ForecastViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="4fw-cR-rgf">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="22" sectionFooterHeight="22" id="4fw-cR-rgf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ForecastCell" rowHeight="55" id="WSK-g0-jOA" customClass="ForecastCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ForecastCell" rowHeight="88" id="WSK-g0-jOA" customClass="ForecastCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WSK-g0-jOA" id="8DF-2p-r4Z">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9o-qg-ks0">
+                                            <rect key="frame" x="20" y="8" width="89.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IoM-Rg-tUa">
-                                            <rect key="frame" x="20" y="2.5" width="50" height="50"/>
+                                            <rect key="frame" x="20" y="29.5" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="IoM-Rg-tUa" secondAttribute="height" multiplier="1:1" id="F7t-m8-mbH"/>
                                                 <constraint firstAttribute="width" constant="50" id="uCR-Lg-7no"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7º" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPE-9K-9eN">
-                                            <rect key="frame" x="78" y="1.5" width="41" height="52.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7º" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hPE-9K-9eN">
+                                            <rect key="frame" x="78" y="28.5" width="41" height="52.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="44"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2º" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8q-NK-e8c">
-                                            <rect key="frame" x="131" y="1.5" width="41" height="52.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="2º" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p8q-NK-e8c">
+                                            <rect key="frame" x="131" y="28.5" width="41" height="52.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="44"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9o-qg-ks0">
-                                            <rect key="frame" x="490" y="17.5" width="89.5" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="centerY" secondItem="IoM-Rg-tUa" secondAttribute="centerY" id="Bs2-cE-B8A"/>
                                         <constraint firstItem="p8q-NK-e8c" firstAttribute="centerY" secondItem="hPE-9K-9eN" secondAttribute="centerY" id="Dff-9A-5iX"/>
-                                        <constraint firstItem="T9o-qg-ks0" firstAttribute="centerY" secondItem="p8q-NK-e8c" secondAttribute="centerY" id="N13-5G-vC3"/>
                                         <constraint firstItem="hPE-9K-9eN" firstAttribute="centerY" secondItem="IoM-Rg-tUa" secondAttribute="centerY" id="NIh-Ez-0Jy"/>
-                                        <constraint firstAttribute="trailing" secondItem="T9o-qg-ks0" secondAttribute="trailing" constant="20" id="YjC-gy-EhV"/>
+                                        <constraint firstAttribute="bottom" secondItem="IoM-Rg-tUa" secondAttribute="bottom" constant="8" id="Qhf-0H-ryy"/>
+                                        <constraint firstItem="T9o-qg-ks0" firstAttribute="leading" secondItem="8DF-2p-r4Z" secondAttribute="leading" constant="20" id="b8k-NV-Lya"/>
                                         <constraint firstItem="p8q-NK-e8c" firstAttribute="leading" secondItem="hPE-9K-9eN" secondAttribute="trailing" constant="12" id="eWT-OZ-ZvK"/>
+                                        <constraint firstItem="T9o-qg-ks0" firstAttribute="top" secondItem="8DF-2p-r4Z" secondAttribute="top" constant="8" id="fSU-uR-FN7"/>
                                         <constraint firstItem="IoM-Rg-tUa" firstAttribute="leading" secondItem="8DF-2p-r4Z" secondAttribute="leading" constant="20" id="kzq-Q3-KJU"/>
                                         <constraint firstItem="hPE-9K-9eN" firstAttribute="leading" secondItem="IoM-Rg-tUa" secondAttribute="trailing" constant="8" id="rgD-w0-Ro9"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="dayTemperatureLabel" destination="hPE-9K-9eN" id="ENB-uP-NCf"/>
-                                    <outlet property="forecastIcon" destination="8DF-2p-r4Z" id="jYi-In-aK1"/>
+                                    <outlet property="forecastIcon" destination="IoM-Rg-tUa" id="mZr-kJ-7VK"/>
                                     <outlet property="nightTemperatureLabel" destination="p8q-NK-e8c" id="kMq-Sc-1Q8"/>
                                     <outlet property="weekDayLabel" destination="T9o-qg-ks0" id="cFX-8v-gxA"/>
                                 </connections>

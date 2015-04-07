@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ForecastCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIView *forecastIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *forecastIcon;
 @property (weak, nonatomic) IBOutlet UILabel *dayTemperatureLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nightTemperatureLabel;
 @property (weak, nonatomic) IBOutlet UILabel *weekDayLabel;
